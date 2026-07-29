@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register · Taste Trails</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Great+Vibes&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <aside class="auth-visual">
+      <div class="auth-visual-inner">
+        <a href="index.html" class="logo-word">Taste Trails</a>
+        <p>Join Kenya’s food discovery trail — reviews, ratings, and recommendations in one place.</p>
+      </div>
+    </aside>
+
+    <main class="auth-panel">
+      <div class="auth-card">
+        <h1>Create account</h1>
+        <p class="lead">Register to start exploring restaurants your way.</p>
+
+        <form id="register-form" novalidate>
+          <div class="form-group">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="new-password" required placeholder="At least 6 characters">
+          </div>
+          <div class="form-group">
+            <label for="confirm">Confirm password</label>
+            <input id="confirm" name="confirm" type="password" autocomplete="new-password" required placeholder="Repeat password">
+          </div>
+          <p class="form-msg" data-form-msg></p>
+          <button class="btn btn-block" type="submit">Register</button>
+        </form>
+
+        <p class="auth-alt">Already have an account? <a href="login.html">Login</a></p>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
