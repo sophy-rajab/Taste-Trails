@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard · Taste Trails</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Great+Vibes&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body class="admin-body" data-admin-root>
+  <aside class="admin-sidebar">
+    <a href="../index.html" class="logo-word">Taste Trails</a>
+    <p class="sub">Admin console</p>
+    <nav class="admin-nav" data-admin-tabs>
+      <button type="button" class="active" data-tab="overview">Dashboard</button>
+      <button type="button" data-tab="restaurants">Restaurants</button>
+      <button type="button" data-tab="reviews">Reviews</button>
+      <button type="button" data-tab="users">Users</button>
+      <a href="../index.html">← Back to site</a>
+      <a href="#" data-admin-logout>Logout</a>
+    </nav>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-top">
+      <div>
+        <p class="eyebrow" style="margin:0">Admin</p>
+        <h1 data-admin-title>Dashboard</h1>
+      </div>
+      <div>
+        <span class="user-chip" data-admin-user></span>
+      </div>
+    </div>
+
+    <section class="admin-tab is-active" data-tab-panel="overview">
+      <div class="stat-grid">
+        <article class="stat-card">
+          <span>Restaurants</span>
+          <strong data-stat-restaurants>—</strong>
+        </article>
+        <article class="stat-card">
+          <span>Users</span>
+          <strong data-stat-users>—</strong>
+        </article>
+        <article class="stat-card">
+          <span>Reviews</span>
+          <strong data-stat-reviews>—</strong>
+        </article>
+        <article class="stat-card">
+          <span>Avg. rating</span>
+          <strong data-stat-rating>—</strong>
+        </article>
+      </div>
+
+      <div class="admin-panels">
+        <section class="panel">
+          <h2>Quick look — restaurants</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Cuisine</th>
+                  <th>Rating</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody data-admin-restaurants-preview></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Cuisine popularity</h2>
+          <div data-cuisine-bars></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="admin-tab" data-tab-panel="restaurants" hidden>
+      <section class="panel">
+        <div class="panel-head-row">
+          <div>
+            <h2 data-resto-form-title>Add restaurant</h2>
+            <p class="muted">Fill in details, upload a logo and cover photo, then save.</p>
+          </div>
+          <button type="button" class="btn ghost tiny" data-resto-reset hidden>Clear form</button>
+        </div>
+
+        <form id="admin-resto-form" class="admin-form" novalidate>
+          <input type="hidden" name="id" value="">
+          <input type="hidden" name="image" value="">
+          <input type="hidden" name="logo" value="">
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="resto-name">Restaurant name *</label>
+              <input id="resto-name" name="name" required placeholder="e.g. Java House">
+            </div>
+            <div class="form-group">
+              <label for="resto-cuisine">Cuisine *</label>
+              <input id="resto-cuisine" name="cuisine" required placeholder="e.g. Kenyan, Italian">
+            </div>
+            <div class="form-group">
+              <label for="resto-location">Location / area *</label>
+              <input id="resto-location" name="location" required placeholder="e.g. Westlands">
+            </div>
+            <div class="form-group">
+              <label for="resto-city">City</label>
+              <input id="resto-city" name="city" value="Nairobi" placeholder="Nairobi">
+            </div>
+            <div class="form-group">
+              <label for="resto-phone">Phone</label>
+              <input id="resto-phone" name="phone" placeholder="+254 7xx xxx xxx">
+            </div>
+            <div class="form-group">
+              <label for="resto-hours">Opening hours</label>
+              <input id="resto-hours" name="hours" placeholder="11:00 AM – 10:00 PM">
+            </div>
+            <div class="form-group">
+              <label for="resto-tier">Price tier</label>
+              <select id="resto-tier" name="priceTier">
+                <option value="budget">Budget</option>
+                <option value="mid" selected>Moderate</option>
+                <option value="upscale">Upscale</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="resto-min">Min price (KSh)</label>
+              <input id="resto-min" name="priceMin" type="number" min="0" step="50" placeholder="500">
+            </div>
+            <div class="form-group">
+              <label for="resto-max">Max price (KSh)</label>
+              <input id="resto-max" name="priceMax" type="number" min="0" step="50" placeholder="2500">
+            </div>
+            <div class="form-group">
+              <label for="resto-tags">Tags (comma separated)</label>
+              <input id="resto-tags" name="tags" placeholder="Wi‑Fi, Family, Outdoor">
+            </div>
+            <div class="form-group form-span-2">
+              <label for="resto-desc">Description *</label>
+              <textarea id="resto-desc" name="description" rows="3" required placeholder="Short description of the restaurant…"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="resto-logo">Restaurant logo</label>
+              <input id="resto-logo" name="logoFile" type="file" accept="image/*">
+              <div class="media-preview" data-logo-preview></div>
+            </div>
+            <div class="form-group">
+              <label for="resto-cover">Cover photo</label>
+              <input id="resto-cover" name="coverFile" type="file" accept="image/*">
+              <div class="media-preview" data-cover-preview></div>
+            </div>
+            <div class="form-group form-check">
+              <label>
+                <input type="checkbox" name="featured">
+                Show on Featured section
+              </label>
+            </div>
+          </div>
+
+          <p class="form-msg" data-resto-msg></p>
+          <div class="form-actions">
+            <button class="btn" type="submit" data-resto-submit>Save restaurant</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>All restaurants</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Cuisine</th>
+                <th>Rating</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody data-admin-restaurants></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <section class="admin-tab" data-tab-panel="reviews" hidden>
+      <section class="panel">
+        <h2>Reviews</h2>
+        <p class="muted" style="margin-top:-0.5rem;margin-bottom:1rem">Customer feedback across the platform. You can remove inappropriate reviews.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Restaurant</th>
+                <th>Rating</th>
+                <th>Date</th>
+                <th>Comment</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody data-admin-reviews></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <section class="admin-tab" data-tab-panel="users" hidden>
+      <section class="panel">
+        <h2>Users</h2>
+        <p class="muted" style="margin-top:-0.5rem;margin-bottom:1rem">Registered accounts and roles.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody data-admin-users></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

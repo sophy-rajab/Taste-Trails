@@ -1,173 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Taste Trails</title>
-
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Great Vibes">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taste Trails · Discover Kenya’s Best Restaurants</title>
+  <meta name="description" content="Taste Trails helps you discover restaurants across Kenya by cuisine, budget, location, and real reviews.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Great+Vibes&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+<body class="home">
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="logo" href="index.html" aria-label="Taste Trails home">
+        <img src="images/logo.png" alt="">
+        <span class="logo-word">Taste Trails</span>
+      </a>
 
-<body>
-    <!--Navigation Bar-->
-    <header class="navbar">
-        <nav>
-    
-            <div class="logo">
-                <a href="index.html">
-                    <img src= "images/logo.png"alt="Taste Trails Logo">
-                </a>
-            </div>
-    
-            <ul class="nav-links">
-                <li><a href="#"class="active">Home</a></li>
-                <li><a href="#">Restaurants</a></li>
-                <li><a href="#">Reviews</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-    
-            <div class="auth-buttons">
-                <a href="#" class="login-btn">Login</a>
-                <a href="#" class="register-btn">Register</a>
-            </div>
-                <!--Hamburger menu-->
-                <div class="menu-toggle">
-                 ☰
-                </div>
-    
-         </nav>
-    </header>
-    </body>
-    
-    <!--Hero section-->
-    <header class="hero">
-        <h1>Taste Trails</h1>
-        <p class="tagline">
-            Tempting Tastes , Timeless Travels
-        </p>
-        <button id="explore-btn" type="button">Explore Now</button>
-    </header>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
 
-    <!--Why choose Taste Trails-->
-    <section id="features" class="features">
-        <h2>Why Choose Taste Trails?</h2>
-        <div class="feature-container">
-            <div class="feature-card">
-                <div class="icon">🍽️</div>
-                <h3>Discover Restaurants</h3>
-                <p>
-                    Explore restaurants across Kenya based on your favourite cuisine, location and budget.
-                </p>
-            </div>
-    
-            <div class="feature-card">
-                <div class="icon">⭐</div>
-                <h3>Honest Reviews</h3>
-                <p>
-                    Read genuine reviews and ratings from other food lovers before choosing where to dine.
-                </p>
-            </div>
-    
-            <div class="feature-card">
-                <div class="icon">📍</div>
-                <h3>Smart Recommendations</h3>
-                <p>
-                    Receive personalized restaurant suggestions tailored to your tastes and preferences.
-                </p>
-            </div>
-        </div>
-    
-    </section>
-  <!-- Featured Restaurants -->
-
-<section class="restaurants">
-
-    <h2>Featured Restaurants</h2>
-
-    <div class="restaurant-container">
-
-        <div class="restaurant-card">
-
-            <img src="images/javahouse.jpg" alt="Java House">
-
-            <div class="restaurant-content">
-
-                <h3>Java House</h3>
-
-                <p class="rating">⭐⭐⭐⭐⭐ 4.8</p>
-
-                <p>📍 Nairobi CBD</p>
-
-                <p>🍴 Continental Cuisine</p>
-
-                <p>💰 Moderate</p>
-
-                <button class="view-btn">View Details</button>
-
-            </div>
-
-        </div>
-
-        <div class="restaurant-card">
-
-            <img src="images/artcaffe.jpg" alt="Artcaffé">
-
-            <div class="restaurant-content">
-
-                <h3>Artcaffé</h3>
-
-                <p class="rating">⭐⭐⭐⭐☆ 4.7</p>
-
-                <p>📍 Westlands</p>
-
-                <p>🍕 Italian & Café</p>
-
-                <p>💰 Moderate</p>
-
-                <button class="view-btn">View Details</button>
-
-            </div>
-
-        </div>
-
-        <div class="restaurant-card">
-
-            <img src="images/cjs.jpg" alt="CJ's">
-
-            <div class="restaurant-content">
-
-                <h3>CJ's</h3>
-
-                <p class="rating">⭐⭐⭐⭐☆ 4.6</p>
-
-                <p>📍 Kilimani</p>
-
-                <p>🍔 American Grill</p>
-
-                <p>💰 Moderate</p>
-
-                <button class="view-btn">View Details</button>
-
-            </div>
-
-        </div>
-
+      <div class="auth-buttons" data-auth-slot></div>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
+  </header>
 
-</section>  
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-brand">Taste Trails</h1>
+      <p class="hero-tagline">Tempting tastes, timeless travels.</p>
+      <div class="hero-actions">
+        <button id="explore-btn" class="btn" type="button">Explore Now</button>
+        <button id="find-table-btn" class="btn ghost" type="button">Find a table</button>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#features" aria-label="Scroll to features">
+      <span></span>
+    </a>
+  </section>
 
-    <!-- JavaScript -->
-    <script src="script.jss"></script>
+  <div class="modal" id="find-table-modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="find-table-title">
+      <button type="button" class="modal-close" data-close-modal aria-label="Close">✕</button>
+      <p class="eyebrow">Quick search</p>
+      <h2 id="find-table-title">Find a table</h2>
+      <p class="muted">Pick what you’re craving, where, and your budget — we’ll show matching restaurants.</p>
+      <form id="find-table-form" class="find-form">
+        <div class="form-group">
+          <label for="find-cuisine">Cuisine</label>
+          <select id="find-cuisine" name="cuisine">
+            <option value="">Any cuisine</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="find-location">Location</label>
+          <select id="find-location" name="location">
+            <option value="">Anywhere in Nairobi</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="find-price">Budget</label>
+          <select id="find-price" name="price">
+            <option value="">Any budget</option>
+            <option value="budget">Budget · under KSh 1,500</option>
+            <option value="mid">Moderate · KSh 700–3,500</option>
+            <option value="upscale">Upscale · from KSh 2,500</option>
+          </select>
+        </div>
+        <button class="btn btn-block" type="submit">Show restaurants</button>
+      </form>
+    </div>
+  </div>
 
+  <section id="features" class="section features">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Why Taste Trails</p>
+        <h2>Dining decisions, made simple</h2>
+        <p>Match cuisine, budget in KSh, and location — then trust real reviews before you go.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card" data-reveal>
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11h16M7 11V5a2 2 0 0 1 4 0v6M13 11V4a2 2 0 0 1 4 0v7M5 11v8h14v-8"/></svg>
+          </div>
+          <h3>Discover Restaurants</h3>
+          <p>Browse places across Kenya by cuisine, neighbourhood, and what you’re willing to spend.</p>
+        </article>
+        <article class="feature-card" data-reveal style="--delay:.1s">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 3 2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.9 7.2 18l.9-5.4L4.2 8.7l5.4-.8L12 3z"/></svg>
+          </div>
+          <h3>Honest Reviews</h3>
+          <p>See ratings on food, service, price, and atmosphere from diners who’ve already been.</p>
+        </article>
+        <article class="feature-card" data-reveal style="--delay:.2s">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-4.4 7-10a7 7 0 1 0-14 0c0 5.6 7 10 7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+          </div>
+          <h3>Smart Recommendations</h3>
+          <p>Get suggestions shaped around your tastes so the next great meal finds you faster.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section restaurants" id="featured">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Handpicked</p>
+        <h2>Featured Restaurants</h2>
+        <p>Popular Nairobi spots — each with clear KSh price ranges and ratings.</p>
+      </div>
+      <div class="resto-grid" data-featured></div>
+      <div class="section-cta">
+        <a class="btn ghost" href="restaurants.html">View all restaurants</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cuisine" id="cuisine">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Cravings</p>
+        <h2>Browse by Cuisine</h2>
+        <p>Start with the flavour you’re hungry for tonight.</p>
+      </div>
+      <div class="cuisine-grid" data-cuisines></div>
+    </div>
+  </section>
+
+  <section class="section reviews-section" id="latest-reviews">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Community</p>
+        <h2>Latest Reviews</h2>
+        <p>Fresh takes from diners exploring Kenya’s food scene.</p>
+      </div>
+      <div class="review-grid" data-home-reviews></div>
+      <div class="section-cta">
+        <a class="btn ghost" href="reviews.html">Read more reviews</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-band-inner" data-reveal>
+      <div>
+        <h2>Ready to find your next favourite table?</h2>
+        <p>Create a free account to save places, leave reviews, and get recommendations.</p>
+      </div>
+      <a class="btn" href="register.html">Join Taste Trails</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo-word">Taste Trails</span>
+          <p>A restaurant recommendation and review platform built for food lovers in Kenya.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="restaurants.html">Restaurants</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="about.html">About</a>
+        </div>
+.index.html
+        <div class="footer-col">
+          <h4>Account</h4>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+          <a href="favorites.html">Favourites</a>
+          <a href="admin/index.html">Admin</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p>hello@tastetrails.co.ke</p>
+          <p>Nairobi, Kenya</p>
+          <a href="contact.html">Send a message</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Taste Trails. All rights reserved.</span>
+        <span>CISY 401 · Kenya Methodist University</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
