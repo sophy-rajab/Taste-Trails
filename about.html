@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About · Taste Trails</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Great+Vibes&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar scrolled">
+    <div class="container nav-inner">
+      <a class="logo" href="index.html" aria-label="Taste Trails home">
+        <img src="images/logo.png" alt="">
+        <span class="logo-word">Taste Trails</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="auth-buttons" data-auth-slot></div>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Our story</p>
+      <h1>About Taste Trails</h1>
+      <p>A restaurant recommendation and review management system designed for diners in Kenya.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:2rem">
+    <div class="container split">
+      <article class="content-panel" data-reveal>
+        <h2>What we solve</h2>
+        <p>
+          Finding a restaurant that matches your cuisine, budget, and location should not take hours of searching friends,
+          social media, or scattered review sites. Taste Trails brings discovery, ratings, and recommendations into one place.
+        </p>
+        <p>
+          The platform focuses on Kenya’s hospitality scene — helping locals and visitors make informed dining decisions
+          with transparent community feedback.
+        </p>
+      </article>
+      <article class="content-panel" data-reveal style="--delay:.1s">
+        <h2>What you can do</h2>
+        <p>• Create an account and manage your profile</p>
+        <p>• Search restaurants by cuisine, budget, and location</p>
+        <p>• Read and leave reviews with star ratings</p>
+        <p>• Save favourite restaurants</p>
+        <p>• Get recommendations matched to your preferences</p>
+        <p>• Open map links for easier navigation</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border:0;padding-top:0">
+        <span>© 2026 Taste Trails · CISY 401 Research Project</span>
+        <span>Sophia Rajab · Kenya Methodist University</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
