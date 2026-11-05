@@ -275,7 +275,7 @@ button.btn:hover {
   gap: 0.65rem;
 }
 
-.nav-cta {
+.nav-cta{
   padding: 0.55rem 1.1rem;
   border-radius: 999px;
   font-size: 0.88rem;
@@ -1613,9 +1613,6 @@ td.clip {
     display: none;
   }
 
-  .auth-buttons {
-    display: none;
-  }
 
   .logo-word {
     display: none;
@@ -1638,4 +1635,32 @@ td.clip {
   .hero-brand {
     font-size: clamp(3.4rem, 18vw, 4.8rem);
   }
+}
+/* Login / Register / Logout hover effects */
+.nav-cta {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(255, 106, 42, 0.35);
+}
+
+.nav-cta.outline:hover {
+  background: rgba(255, 179, 71, 0.12);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.nav-cta.solid:hover {
+  background: var(--ember-deep);
+  color: #fff;
+}
+
+.nav-cta.ghost:hover {
+  border-color: var(--ember);
+  color: var(--gold);
 }

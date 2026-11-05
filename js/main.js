@@ -42,11 +42,11 @@
 
     // Show Favourites in main nav when logged in
     const navLinks = qs(".nav-links");
-    if (navLinks && session && !qs('[href="favorites.html"]', navLinks)) {
+    if (navLinks && session && !qs('[href="favorites.php"]', navLinks)) {
       const li = document.createElement("li");
       const isFavPage = window.location.pathname.toLowerCase().includes("favorites");
-      li.innerHTML = `<a href="favorites.html"${isFavPage ? ' class="active"' : ""}>Favourites</a>`;
-      const reviews = qsa("a", navLinks).find((a) => a.getAttribute("href") === "reviews.html");
+      li.innerHTML = `<a href="favorites.php"${isFavPage ? ' class="active"' : ""}>Favourites</a>`;
+      const reviews = qsa("a", navLinks).find((a) => a.getAttribute("href") === "reviews.php");
       if (reviews && reviews.parentElement) {
         navLinks.insertBefore(li, reviews.parentElement);
       } else {
@@ -57,11 +57,11 @@
     if (session) {
       const adminLink =
         session.role === "admin"
-          ? `<a href="admin/index.html" class="nav-cta ghost">Admin</a>`
+          ? `<a href="admin/index.php" class="nav-cta ghost">Admin</a>`
           : "";
       const favCount = window.TTFavorites ? window.TTFavorites.list().length : 0;
       authWrap.innerHTML = `
-        <a href="favorites.html" class="nav-cta ghost" title="Favourites">♥ ${favCount}</a>
+        <a href="favorites.php" class="nav-cta ghost" title="Favourites">♥ ${favCount}</a>
         <span class="user-chip" title="${session.email}">${session.name.split(" ")[0]}</span>
         ${adminLink}
         <button type="button" class="nav-cta outline" data-logout>Logout</button>
@@ -70,13 +70,13 @@
       if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
           window.TTAuth.logout();
-          window.location.href = "index.html";
+          window.location.href = "index.php";
         });
       }
     } else {
       authWrap.innerHTML = `
-        <a href="login.html" class="nav-cta outline">Login</a>
-        <a href="register.html" class="nav-cta solid">Register</a>
+        <a href="login.php" class="nav-cta outline">Login</a>
+        <a href="register.php" class="nav-cta solid">Register</a>
       `;
     }
   }
@@ -93,14 +93,14 @@
       logout.addEventListener("click", (e) => {
         e.preventDefault();
         window.TTAuth.logout();
-        window.location.href = "../login.html";
+        window.location.href = "../login.php";
       });
     }
   }
 
   function requireAdmin() {
     if (!window.TTAuth || !window.TTAuth.isAdmin()) {
-      window.location.href = "../login.html";
+      window.location.href = "../login.php";
       return false;
     }
     return true;
@@ -155,14 +155,14 @@
       : "";
     return `
       <article class="resto-card" data-reveal>
-        <a class="resto-media" href="${base}restaurant.html?id=${r.id}">
+        <a class="resto-media" href="${base}restaurant.php?id=${r.id}">
           <img src="${mediaSrc(r.image, base)}" alt="${r.name}" loading="lazy">
           <span class="price-badge">${window.TT.priceBadge(r)}</span>
           ${logo}
         </a>
         <div class="resto-body">
           <div class="resto-top">
-            <h3><a href="${base}restaurant.html?id=${r.id}">${r.name}</a></h3>
+            <h3><a href="${base}restaurant.php?id=${r.id}">${r.name}</a></h3>
             <p class="resto-rating" aria-label="Rating ${r.rating} out of 5">
               <span>${window.TT.stars(r.rating)}</span> ${r.rating}
             </p>
@@ -170,7 +170,7 @@
           <p class="resto-meta">📍 ${r.location}</p>
           <p class="resto-meta">🍴 ${r.cuisine}</p>
           <p class="resto-meta">💰 ${window.TT.priceRange(r)}</p>
-          <a class="btn btn-block" href="${base}restaurant.html?id=${r.id}">View Details</a>
+          <a class="btn btn-block" href="${base}restaurant.php?id=${r.id}">View Details</a>
           ${unfav}
         </div>
       </article>
@@ -216,7 +216,7 @@
         const accent = accents[key] || "#c45c26";
         const label = count === 1 ? "1 place" : `${count} places`;
         return `
-      <a class="cuisine-tile" href="restaurants.html?cuisine=${encodeURIComponent(name)}" data-reveal style="--delay:${i * 0.06}s; --accent:${accent}">
+      <a class="cuisine-tile" href="restaurants.php?cuisine=${encodeURIComponent(name)}" data-reveal style="--delay:${i * 0.06}s; --accent:${accent}">
         <span class="cuisine-name">${name}</span>
         <span class="cuisine-count">${label}</span>
       </a>`;
@@ -302,7 +302,7 @@
       if (form.location.value) params.set("location", form.location.value);
       if (form.price.value) params.set("price", form.price.value);
       const query = params.toString();
-      window.location.href = "restaurants.html" + (query ? "?" + query : "");
+      window.location.href = "restaurants.php" + (query ? "?" + query : "");
     });
   }
 
@@ -326,7 +326,7 @@
       msg.textContent = "Welcome back! Redirecting…";
       msg.className = "form-msg success";
       const dest =
-        result.user.role === "admin" ? "admin/index.html" : "index.html";
+        result.user.role === "admin" ? "admin/index.php" : "index.php";
       setTimeout(() => {
         window.location.href = dest;
       }, 600);
@@ -361,7 +361,7 @@
       msg.textContent = "Account created! Taking you home…";
       msg.className = "form-msg success";
       setTimeout(() => {
-        window.location.href = "index.html";
+        window.location.href = "index.php";
       }, 600);
     });
   }
@@ -460,7 +460,7 @@
     const id = new URLSearchParams(window.location.search).get("id");
     const r = window.TT.getRestaurant(id);
     if (!r) {
-      mount.innerHTML = `<p class="empty-state">Restaurant not found. <a href="restaurants.html">Browse all</a></p>`;
+      mount.innerHTML = `<p class="empty-state">Restaurant not found. <a href="restaurants.php">Browse all</a></p>`;
       return;
     }
 
@@ -494,7 +494,7 @@
         <button class="btn" type="submit">Submit review</button>
       </form>`
       : `<div class="review-login-prompt">
-          <p>Want to leave a review? <a href="login.html">Log in</a> or <a href="register.html">create an account</a>.</p>
+          <p>Want to leave a review? <a href="login.php">Log in</a> or <a href="register.php">create an account</a>.</p>
         </div>`;
 
     mount.innerHTML = `
@@ -551,7 +551,7 @@
                 ? "Saved ✓ · Remove"
                 : "Save to favourites"
             }</button>
-            <a class="btn btn-block ghost" href="favorites.html">View favourites</a>
+            <a class="btn btn-block ghost" href="favorites.php">View favourites</a>
             <a class="btn btn-block ghost" href="https://www.google.com/maps/search/${encodeURIComponent(r.name + " " + r.location)}" target="_blank" rel="noopener">View on map</a>
           </div>
         </aside>
@@ -562,12 +562,12 @@
     if (favBtn) {
       favBtn.addEventListener("click", () => {
         if (!window.TTAuth.isLoggedIn()) {
-          window.location.href = "login.html";
+          window.location.href = "login.php";
           return;
         }
         const result = window.TTFavorites.toggle(r.id);
         if (!result.ok) {
-          window.location.href = "login.html";
+          window.location.href = "login.php";
           return;
         }
         favBtn.textContent = result.saved ? "Saved ✓ · Remove" : "Save to favourites";
@@ -611,8 +611,8 @@
         <div class="empty-state">
           <p>Log in to see your favourited restaurants.</p>
           <p style="margin-top:1rem">
-            <a class="btn" href="login.html">Login</a>
-            <a class="btn ghost" href="register.html" style="margin-left:.5rem">Register</a>
+            <a class="btn" href="login.php">Login</a>
+            <a class="btn ghost" href="register.php" style="margin-left:.5rem">Register</a>
           </p>
         </div>`;
       return;
@@ -629,7 +629,7 @@
         root.innerHTML = `
           <div class="empty-state">
             <p>No favourites yet. Save restaurants from their detail page.</p>
-            <p style="margin-top:1rem"><a class="btn" href="restaurants.html">Browse restaurants</a></p>
+            <p style="margin-top:1rem"><a class="btn" href="restaurants.php">Browse restaurants</a></p>
           </div>`;
         return;
       }
@@ -666,7 +666,7 @@
           <div class="avatar">${rev.user.charAt(0)}</div>
           <div>
             <strong>${rev.user}</strong>
-            <p><a href="restaurant.html?id=${rev.restaurantId}">${rev.restaurant}</a> · ${window.TT.formatDate(rev.date)}</p>
+            <p><a href="restaurant.php?id=${rev.restaurantId}">${rev.restaurant}</a> · ${window.TT.formatDate(rev.date)}</p>
           </div>
         </div>
         <p class="review-stars">${window.TT.stars(rev.rating)}</p>

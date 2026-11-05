@@ -1,3 +1,34 @@
+<?php
+session_start();
+include "db.php";
+
+function stars($rating) {
+    $full = floor($rating);
+    $half = ($rating - $full) >= 0.4 ? 1 : 0;
+    return str_repeat("★", $full) . ($half ? "½" : "") . str_repeat("☆", 5 - $full - $half);
+}
+
+$featured = $conn->query("SELECT r.*,
+        COALESCE(ROUND(AVG(rv.rating), 1), 0) AS avg_rating,
+        COUNT(rv.id) AS review_count
+        FROM restaurants r
+        LEFT JOIN reviews rv ON rv.restaurant_id = r.id
+        WHERE r.featured = 1
+        GROUP BY r.id
+        ORDER BY r.name")->fetch_all(MYSQLI_ASSOC);
+
+$latestReviews = $conn->query("SELECT rv.*, u.name AS user_name, r.name AS restaurant_name
+        FROM reviews rv
+        JOIN users u ON u.id = rv.user_id
+        JOIN restaurants r ON r.id = rv.restaurant_id
+        ORDER BY rv.created_at DESC
+        LIMIT 3")->fetch_all(MYSQLI_ASSOC);
+
+$cuisineList = $conn->query("SELECT cuisine, COUNT(*) AS total
+        FROM restaurants
+        GROUP BY cuisine
+        ORDER BY total DESC, cuisine")->fetch_all(MYSQLI_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,20 +44,32 @@
 <body class="home">
   <header class="navbar">
     <div class="container nav-inner">
-      <a class="logo" href="index.html" aria-label="Taste Trails home">
+      <a class="logo" href="index.php" aria-label="Taste Trails home">
         <img src="images/logo.png" alt="">
         <span class="logo-word">Taste Trails</span>
       </a>
 
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="restaurants.html">Restaurants</a></li>
-        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="index.php" class="active">Home</a></li>
+        <li><a href="restaurants.php">Restaurants</a></li>
+        <li><a href="recommendations.php">Recommended</a></li>
+        <li><a href="reviews.php">Reviews</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
 
-      <div class="auth-buttons" data-auth-slot></div>
+      <div class="auth-buttons">
+        <?php if (isset($_SESSION["user_id"])): ?>
+        <span>Hi, <?php echo htmlspecialchars($_SESSION["user_name"]); ?></span>
+        <?php if ($_SESSION["user_role"] === "admin"): ?>
+        <a href="admin/index.php">Admin</a>
+        <?php endif; ?>
+        <a href="logout.php">Logout</a>
+        <?php else: ?>
+        <a href="login.php">Login</a>
+        <a href="register.php">Register</a>
+        <?php endif; ?>
+      </div>
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
   </header>
@@ -119,9 +162,34 @@
         <h2>Featured Restaurants</h2>
         <p>Popular Nairobi spots — each with clear KSh price ranges and ratings.</p>
       </div>
-      <div class="resto-grid" data-featured></div>
+      <div class="resto-grid">
+  <?php foreach ($featured as $r): ?>
+  <article class="resto-card">
+    <a class="resto-media" href="restaurant.php?id=<?php echo $r["id"]; ?>">
+      <img src="<?php echo htmlspecialchars($r["image"]); ?>" alt="<?php echo htmlspecialchars($r["name"]); ?>" loading="lazy">
+      <span class="price-badge">from KSh <?php echo number_format($r["price_min"]); ?></span>
+    </a>
+    <div class="resto-body">
+      <div class="resto-top">
+        <h3><a href="restaurant.php?id=<?php echo $r["id"]; ?>"><?php echo htmlspecialchars($r["name"]); ?></a></h3>
+        <p class="resto-rating">
+          <?php if ($r["review_count"] > 0): ?>
+            <span><?php echo stars($r["avg_rating"]); ?></span> <?php echo $r["avg_rating"]; ?>
+          <?php else: ?>
+            <span>No reviews yet</span>
+          <?php endif; ?>
+        </p>
+      </div>
+      <p class="resto-meta">📍 <?php echo htmlspecialchars($r["location"]); ?></p>
+      <p class="resto-meta">🍴 <?php echo htmlspecialchars($r["cuisine"]); ?></p>
+      <p class="resto-meta">💰 KSh <?php echo number_format($r["price_min"]); ?> – KSh <?php echo number_format($r["price_max"]); ?></p>
+      <a class="btn btn-block" href="restaurant.php?id=<?php echo $r["id"]; ?>">View Details</a>
+    </div>
+  </article>
+  <?php endforeach; ?>
+</div>
       <div class="section-cta">
-        <a class="btn ghost" href="restaurants.html">View all restaurants</a>
+        <a class="btn ghost" href="restaurants.php">View all restaurants</a>
       </div>
     </div>
   </section>
@@ -133,7 +201,28 @@
         <h2>Browse by Cuisine</h2>
         <p>Start with the flavour you’re hungry for tonight.</p>
       </div>
-      <div class="cuisine-grid" data-cuisines></div>
+      <div class="cuisine-grid">
+        <?php
+        $accents = [
+          "Kenyan" => "#c45c26", "Continental" => "#d97706", "Italian" => "#b45309",
+          "Indian" => "#ea580c", "Chinese" => "#c2410c", "Ethiopian" => "#9a3412",
+          "Seafood" => "#0e7490", "Grill" => "#b91c1c", "Fusion" => "#a16207", "American" => "#b91c1c"
+        ];
+        foreach ($cuisineList as $i => $c):
+          $accent = "#c45c26";
+          foreach ($accents as $key => $color) {
+            if (stripos($c["cuisine"], $key) !== false) {
+              $accent = $color;
+              break;
+            }
+          }
+      ?>
+      <a class="cuisine-tile" href="restaurants.php?cuisine=<?php echo urlencode($c["cuisine"]); ?>" style="--delay:<?php echo $i * 0.06; ?>s; --accent:<?php echo $accent; ?>">
+        <span class="cuisine-name"><?php echo htmlspecialchars($c["cuisine"]); ?></span>
+        <span class="cuisine-count"><?php echo $c["total"] == 1 ? "1 place" : $c["total"] . " places"; ?></span>
+      </a>
+      <?php endforeach; ?>
+      </div>
     </div>
   </section>
 
@@ -144,22 +233,42 @@
         <h2>Latest Reviews</h2>
         <p>Fresh takes from diners exploring Kenya’s food scene.</p>
       </div>
-      <div class="review-grid" data-home-reviews></div>
+      <div class="review-grid">
+        <?php if (count($latestReviews) === 0): ?>
+          <p class="empty-state">No reviews yet. Be the first to review a restaurant!</p>
+        <?php endif; ?>
+
+        <?php foreach ($latestReviews as $rev): ?>
+        <article class="review-card">
+          <div class="review-head">
+            <div class="avatar"><?php echo htmlspecialchars(mb_substr($rev["user_name"], 0, 1)); ?></div>
+            <div>
+              <strong><?php echo htmlspecialchars($rev["user_name"]); ?></strong>
+              <p><?php echo htmlspecialchars($rev["restaurant_name"]); ?> · <?php echo date("M j, Y", strtotime($rev["created_at"])); ?></p>
+            </div>
+          </div>
+          <p class="review-stars"><?php echo stars($rev["rating"]); ?></p>
+          <p class="review-text">“<?php echo htmlspecialchars($rev["comment"]); ?>”</p>
+        </article>
+        <?php endforeach; ?>
+      </div>
       <div class="section-cta">
-        <a class="btn ghost" href="reviews.html">Read more reviews</a>
+        <a class="btn ghost" href="reviews.php">Read more reviews</a>
       </div>
     </div>
   </section>
 
+  <?php if (!isset($_SESSION["user_id"])): ?>
   <section class="cta-band">
     <div class="container cta-band-inner" data-reveal>
       <div>
         <h2>Ready to find your next favourite table?</h2>
         <p>Create a free account to save places, leave reviews, and get recommendations.</p>
       </div>
-      <a class="btn" href="register.html">Join Taste Trails</a>
+      <a class="btn" href="register.php">Join Taste Trails</a>
     </div>
   </section>
+  <?php endif; ?>
 
   <footer class="site-footer">
     <div class="container">
@@ -170,17 +279,17 @@
         </div>
         <div class="footer-col">
           <h4>Explore</h4>
-          <a href="restaurants.html">Restaurants</a>
-          <a href="reviews.html">Reviews</a>
+          <a href="restaurants.php">Restaurants</a>
+          <a href="reviews.php">Reviews</a>
           <a href="about.html">About</a>
         </div>
-.index.html
+
         <div class="footer-col">
           <h4>Account</h4>
-          <a href="login.html">Login</a>
-          <a href="register.html">Register</a>
-          <a href="favorites.html">Favourites</a>
-          <a href="admin/index.html">Admin</a>
+          <a href="login.php">Login</a>
+          <a href="register.php">Register</a>
+          <a href="favorites.php">Favourites</a>
+          <a href="admin/index.php">Admin</a>
         </div>
         <div class="footer-col">
           <h4>Contact</h4>
